@@ -1,0 +1,44 @@
+<view class="card">
+  <view class="card-title">报单信息</view>
+  <view class="form-row">
+    <text class="form-label">报单金额</text>
+    <input
+      class="form-input"
+      type="digit"
+      placeholder="请输入报单金额（元）"
+      value="{{form.amount}}"
+      data-field="amount"
+      bindinput="onInput"
+    />
+  </view>
+  <view class="form-row">
+    <text class="form-label">门店ID</text>
+    <input
+      class="form-input"
+      type="number"
+      placeholder="请输入门店ID"
+      value="{{form.storeId}}"
+      data-field="storeId"
+      bindinput="onInput"
+    />
+  </view>
+  <view class="form-row column">
+    <text class="form-label">备注</text>
+    <textarea
+      class="form-textarea"
+      placeholder="可填写客户、货品等说明"
+      maxlength="200"
+      value="{{form.remark}}"
+      data-field="remark"
+      bindinput="onInput"
+    />
+  </view>
+</view>
+
+<view class="tip">报单提交后进入待审核，审核通过后按佣金规则计算佣金</view>
+
+<view class="bottom-bar">
+  <button class="btn-primary" disabled="{{submitting}}" bindtap="onSubmit">
+    {{submitting ? '提交中…' : '提交报单'}}
+  </button>
+</view>

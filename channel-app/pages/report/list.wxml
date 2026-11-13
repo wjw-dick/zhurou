@@ -1,0 +1,57 @@
+<view class="filter-bar">
+  <view
+    class="filter-item {{activeStatus === item.value ? 'active' : ''}}"
+    wx:for="{{statusOptions}}"
+    wx:key="value"
+    data-value="{{item.value}}"
+    bindtap="onStatusTap"
+  >
+    {{item.label}}
+  </view>
+</view>
+
+<view class="sum-bar">
+  <text>当前筛选报单金额合计</text>
+  <text class="price">¥{{amountSum}}</text>
+</view>
+
+<view class="list">
+  <view class="card" wx:for="{{list}}" wx:key="id">
+    <view class="order-head">
+      <text class="order-no">{{item.reportNo || ('报单 #' + item.id)}}</text>
+      <text
+        class="tag {{item.status === 'SETTLED' ? 'tag-green' : (item.status === 'REJECTED' ? 'tag-red' : 'tag-orange')}}"
+      >
+        {{statusLabel[item.status] || item.status}}
+      </text>
+    </view>
+    <view class="row">
+      <text class="label">报单金额</text>
+      <text class="price">¥{{item.amount || 0}}</text>
+    </view>
+    <view class="row">
+      <text class="label">佣金</text>
+      <text class="value">¥{{item.commission || 0}}</text>
+    </view>
+    <view class="row" wx:if="{{item.orderNo}}">
+      <text class="label">关联订单号</text>
+      <text class="value">{{item.orderNo}}</text>
+    </view>
+    <view class="row">
+      <text class="label">门店ID</text>
+      <text class="value">{{item.storeId || '-'}}</text>
+    </view>
+    <view class="row" wx:if="{{item.auditRemark}}">
+      <text class="label">审核意见</text>
+      <text class="value">{{item.auditRemark}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="empty" wx:if="{{!loading && !list.length}}">暂无报单记录</view>
+<view class="empty" wx:if="{{finished && list.length}}">— 已经到底啦 —</view>
+<view class="empty" wx:if="{{loading}}">加载中…</view>
+
+<view class="bottom-bar">
+  <button class="btn-primary" bindtap="goCreate">新建报单</button>
+</view>

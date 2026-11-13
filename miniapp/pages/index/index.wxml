@@ -1,0 +1,150 @@
+<!-- 首页 -->
+<view class="page-nopad">
+
+  <!-- 门店切换条 -->
+  <view class="store-bar" bindtap="openStorePopup">
+    <text class="store-pin">📍</text>
+    <text class="store-name">{{store ? (store.storeName || store.name) : '请选择门店'}}</text>
+    <text class="store-switch">切换门店 ›</text>
+  </view>
+
+  <view class="page">
+    <!-- Banner 轮播：GET /public/banners?position=MINIAPP_HOME -->
+    <swiper
+      wx:if="{{banners.length}}"
+      class="banner"
+      indicator-dots="{{true}}"
+      autoplay="{{true}}"
+      circular="{{true}}"
+      interval="4000"
+      duration="400"
+      indicator-color="rgba(255,255,255,0.5)"
+      indicator-active-color="#c8161d"
+    >
+      <swiper-item wx:for="{{banners}}" wx:key="id" bindtap="onBannerTap" data-item="{{item}}">
+        <image
+          class="banner-img"
+          src="{{item.imageUrl || item.image}}"
+          mode="aspectFill"
+        />
+      </swiper-item>
+    </swiper>
+    <view wx:else class="banner banner-placeholder">
+      <text class="banner-ph-text">猪事大吉 · 新鲜直达</text>
+    </view>
+
+    <!-- 快捷入口 -->
+    <view class="quick-row">
+      <view class="quick-item" bindtap="goReserve">
+        <text class="quick-icon">🥩</text>
+        <text class="quick-text">鲜肉预订</text>
+      </view>
+      <view class="quick-item" bindtap="goCombo">
+        <text class="quick-icon">🍲</text>
+        <text class="quick-text">火锅套餐</text>
+      </view>
+      <view class="quick-item" bindtap="goCombo">
+        <text class="quick-icon">🎁</text>
+        <text class="quick-text">礼盒专区</text>
+      </view>
+    </view>
+
+    <!-- 分类九宫格：GET /public/categories -->
+    <view class="card">
+      <view class="section-title">全部分类</view>
+      <view class="grid">
+        <view
+          class="grid-item"
+          wx:for="{{categories}}"
+          wx:key="id"
+          bindtap="goCategory"
+          data-id="{{item.id}}"
+        >
+          <view class="grid-icon-wrap">
+            <image
+              wx:if="{{item.icon}}"
+              class="grid-icon"
+              src="{{item.icon}}"
+              mode="aspectFit"
+            />
+            <text wx:else class="grid-emoji">🥩</text>
+          </view>
+          <text class="grid-text ellipsis">{{item.categoryName || item.name}}</text>
+        </view>
+        <view wx:if="{{!categories.length}}" class="empty" style="width:100%">暂无分类</view>
+      </view>
+    </view>
+
+    <!-- 热销爆款：GET /public/products?size=6 -->
+    <view class="card">
+      <view class="row-between" style="margin-bottom: 8rpx;">
+        <view class="section-title" style="margin-bottom:0">热销爆款</view>
+        <text class="section-more" bindtap="goCombo">更多 ›</text>
+      </view>
+
+      <view wx:if="{{hotProducts.length}}">
+        <view
+          class="goods-item"
+          wx:for="{{hotProducts}}"
+          wx:key="id"
+          bindtap="goDetail"
+          data-id="{{item.id}}"
+        >
+          <image
+            wx:if="{{item.displayImage}}"
+            class="goods-thumb"
+            src="{{item.displayImage}}"
+            mode="aspectFill"
+          />
+          <view wx:else class="goods-thumb thumb-placeholder">暂无图</view>
+
+          <view class="goods-info">
+            <view>
+              <view class="goods-name ellipsis-2">{{item.displayName}}</view>
+              <view class="goods-desc ellipsis">{{item.subTitle || item.brief || item.origin || '新鲜直供'}}</view>
+              <view style="margin-top: 8rpx;">
+                <text wx:if="{{item.reservable}}" class="tag tag-gold">可预订</text>
+                <text wx:if="{{item.qualTypes}}" class="tag tag-green" style="margin-left:8rpx;">检疫合格</text>
+              </view>
+            </view>
+            <view class="row-between">
+              <view class="price">
+                <text class="price-symbol">¥</text>
+                <text class="price-num">{{item.displayPrice}}</text>
+                <text class="text-muted">/{{item.unit || '份'}}</text>
+              </view>
+              <text class="text-muted">已售{{item.sales || 0}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view wx:elif="{{loading}}" class="empty">加载中…</view>
+      <view wx:else class="empty">暂无商品</view>
+    </view>
+  </view>
+
+  <!-- 门店选择弹层 -->
+  <view wx:if="{{showStorePopup}}" class="popup-mask" bindtap="closeStorePopup">
+    <view class="popup" catchtap="noop">
+      <view class="popup-title">选择门店</view>
+      <scroll-view scroll-y class="popup-body">
+        <view
+          class="store-option {{store && store.id === item.id ? 'store-option-on' : ''}}"
+          wx:for="{{stores}}"
+          wx:key="id"
+          bindtap="onStoreTap"
+          data-item="{{item}}"
+        >
+          <view class="flex-1">
+            <view class="text-bold">{{item.storeName || item.name}}</view>
+            <view class="text-muted ellipsis">{{item.address || ''}}</view>
+            <view class="text-muted" wx:if="{{item.businessHours}}">营业时间：{{item.businessHours}}</view>
+          </view>
+          <text wx:if="{{store && store.id === item.id}}" class="text-main">✓</text>
+        </view>
+        <view wx:if="{{!stores.length}}" class="empty">暂无门店</view>
+      </scroll-view>
+    </view>
+  </view>
+
+</view>

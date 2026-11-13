@@ -1,0 +1,36 @@
+page {
+  padding-bottom: 160rpx;
+}
+
+.sum-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18rpx 30rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+  font-size: 26rpx;
+  color: #666;
+}
+
+.order-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14rpx;
+}
+
+.order-no {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.bottom-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 16rpx 30rpx calc(16rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  border-top: 1rpx solid #f0f0f0;
+}

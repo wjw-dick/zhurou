@@ -1,0 +1,114 @@
+<!-- 订单详情 -->
+<view class="page" wx:if="{{order}}">
+
+  <!-- 状态头 -->
+  <view class="status-head">
+    <view class="status-text">{{order.statusText}}</view>
+    <view class="status-sub text-muted">订单号：{{order.orderNo}} <text class="copy" bindtap="copyOrderNo">复制</text></view>
+  </view>
+
+  <!-- 收货/自提信息 -->
+  <view class="card">
+    <view class="section-title">{{order.deliveryType === 'DELIVERY' ? '收货信息' : '自提门店'}}</view>
+    <view class="info-line" wx:if="{{order.deliveryType === 'DELIVERY'}}">
+      <text class="info-label">收货人</text>
+      <text class="info-value">{{order.receiverName || '—'}} {{order.receiverPhone}}</text>
+    </view>
+    <view class="info-line" wx:if="{{order.deliveryType === 'DELIVERY'}}">
+      <text class="info-label">收货地址</text>
+      <text class="info-value">{{order.receiverAddress || '—'}}</text>
+    </view>
+    <view class="info-line">
+      <text class="info-label">配送方式</text>
+      <text class="info-value">{{order.deliveryText}}</text>
+    </view>
+    <view class="info-line" wx:if="{{order.appointDate}}">
+      <text class="info-label">预约日期</text>
+      <text class="info-value">{{order.appointDate}}</text>
+    </view>
+    <view class="info-line" wx:if="{{order.storeName}}">
+      <text class="info-label">门店</text>
+      <text class="info-value">{{order.storeName}}</text>
+    </view>
+    <view class="info-line" wx:if="{{order.remark}}">
+      <text class="info-label">备注</text>
+      <text class="info-value">{{order.remark}}</text>
+    </view>
+  </view>
+
+  <!-- 商品清单 -->
+  <view class="card">
+    <view class="section-title">商品清单</view>
+    <view class="goods-item" wx:for="{{items}}" wx:key="key">
+      <image
+        wx:if="{{item.image || item.productImage}}"
+        class="goods-thumb-sm"
+        src="{{item.image || item.productImage}}"
+        mode="aspectFill"
+        bindtap="previewImage"
+        data-src="{{item.image || item.productImage}}"
+      />
+      <view wx:else class="goods-thumb-sm thumb-placeholder">暂无图</view>
+      <view class="goods-info">
+        <view class="goods-name ellipsis-2">{{item.productName}}</view>
+        <view class="goods-desc ellipsis">{{item.skuName}}</view>
+        <view class="goods-desc" wx:if="{{item.splitLabel && item.splitLabel !== '不分割'}}">
+          分割：{{item.splitLabel}}<text wx:if="{{item.splitFee}}" class="text-gold"> (+¥{{item.splitFee}})</text>
+        </view>
+        <view class="row-between" style="margin-top:8rpx;">
+          <text class="price">¥{{item.price}}</text>
+          <text class="text-muted">×{{item.quantity}}</text>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{!items.length}}" class="empty">暂无商品</view>
+  </view>
+
+  <!-- 金额 -->
+  <view class="card">
+    <view class="row-between amount-row">
+      <text class="text-muted">商品金额</text>
+      <text>¥{{order.totalAmountText}}</text>
+    </view>
+    <view class="row-between amount-row">
+      <text class="text-muted">配送费</text>
+      <text>¥{{order.deliveryFeeText}}</text>
+    </view>
+    <view class="divider"></view>
+    <view class="row-between">
+      <text class="text-bold">实付金额</text>
+      <text class="price">
+        <text class="price-symbol">¥</text>
+        <text class="price-num">{{order.amountText}}</text>
+      </text>
+    </view>
+  </view>
+
+  <!-- 订单信息 -->
+  <view class="card">
+    <view class="section-title">订单信息</view>
+    <view class="info-line">
+      <text class="info-label">下单时间</text>
+      <text class="info-value">{{order.createdText}}</text>
+    </view>
+    <view class="info-line">
+      <text class="info-label">订单类型</text>
+      <text class="info-value">{{order.orderType}}</text>
+    </view>
+  </view>
+
+  <view class="footer-holder"></view>
+  <view class="footer-bar">
+    <view class="btn btn-plain flex-1" bindtap="contact">联系客服</view>
+    <view wx:if="{{order.status === 'UNPAID'}}" class="btn btn-primary flex-1" style="margin-left:20rpx;" bindtap="pay">立即支付</view>
+  </view>
+</view>
+
+<view wx:elif="{{loading}}" class="empty">
+  <text class="empty-icon">⏳</text>
+  加载中…
+</view>
+<view wx:else class="empty">
+  <text class="empty-icon">📦</text>
+  订单不存在
+</view>

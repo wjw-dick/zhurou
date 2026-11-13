@@ -1,0 +1,97 @@
+<!-- 我的 -->
+<view class="page">
+
+  <!-- 会员信息 -->
+  <view class="member-card">
+    <view class="member-top" bindtap="relogin">
+      <image wx:if="{{member && member.avatar}}" class="avatar" src="{{member.avatar}}" mode="aspectFill" />
+      <view wx:else class="avatar avatar-default">🐷</view>
+      <view class="flex-1">
+        <view class="member-name">{{member ? (member.nickname || member.memberName || '微信用户') : '点击登录'}}</view>
+        <view class="member-level">
+          <text class="level-badge">{{member && (member.levelName || member.level) ? (member.levelName || member.level) : '普通会员'}}</text>
+          <text class="member-phone" wx:if="{{member && member.phone}}">{{member.phone}}</text>
+        </view>
+      </view>
+      <text class="member-arrow">›</text>
+    </view>
+
+    <view class="member-assets">
+      <view class="asset-item">
+        <text class="asset-num">¥{{member ? (member.balance || 0) : '0.00'}}</text>
+        <text class="asset-label">余额</text>
+      </view>
+      <view class="asset-item">
+        <text class="asset-num">{{member ? (member.points || 0) : 0}}</text>
+        <text class="asset-label">积分</text>
+      </view>
+      <view class="asset-item">
+        <text class="asset-num">{{coupons.length}}</text>
+        <text class="asset-label">优惠券</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 我的订单 -->
+  <view class="card">
+    <view class="row-between" bindtap="goOrders" data-status="UNPAID">
+      <view class="section-title" style="margin-bottom:0">我的订单</view>
+      <text class="section-more">全部订单 ›</text>
+    </view>
+    <view class="order-entry">
+      <view class="entry-item" bindtap="goOrders" data-status="UNPAID">
+        <text class="entry-icon">💰</text>
+        <text class="entry-text">待支付</text>
+      </view>
+      <view class="entry-item" bindtap="goOrders" data-status="PREPARING">
+        <text class="entry-icon">📦</text>
+        <text class="entry-text">待备货</text>
+      </view>
+      <view class="entry-item" bindtap="goOrders" data-status="READY">
+        <text class="entry-icon">🏬</text>
+        <text class="entry-text">待取货</text>
+      </view>
+      <view class="entry-item" bindtap="goOrders" data-status="DELIVERING">
+        <text class="entry-icon">🚚</text>
+        <text class="entry-text">配送中</text>
+      </view>
+      <view class="entry-item" bindtap="goOrders" data-status="COMPLETED">
+        <text class="entry-icon">✅</text>
+        <text class="entry-text">已完成</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 常用功能 -->
+  <view class="card">
+    <view class="section-title">常用功能</view>
+
+    <view class="link-row" bindtap="goReserve">
+      <text class="link-icon">🥩</text>
+      <text class="link-text flex-1">鲜肉预订</text>
+      <text class="link-arrow">›</text>
+    </view>
+    <view class="link-row" bindtap="goCombo">
+      <text class="link-icon">🍲</text>
+      <text class="link-text flex-1">火锅套餐 / 礼盒专区</text>
+      <text class="link-arrow">›</text>
+    </view>
+    <view class="link-row" bindtap="goCoupons">
+      <text class="link-icon">🎫</text>
+      <text class="link-text flex-1">我的优惠券</text>
+      <text class="link-arrow">›</text>
+    </view>
+    <view class="link-row" bindtap="contact">
+      <text class="link-icon">📞</text>
+      <text class="link-text flex-1">联系客服</text>
+      <text class="link-arrow">›</text>
+    </view>
+    <view class="link-row" bindtap="goWeb" data-url="{{siteConfig.siteUrl || siteConfig.officialUrl}}">
+      <text class="link-icon">🌐</text>
+      <text class="link-text flex-1">关于我们</text>
+      <text class="link-arrow">›</text>
+    </view>
+  </view>
+
+  <view class="foot-tip">猪事大吉 · 新鲜猪肉 直供到家</view>
+</view>

@@ -1,0 +1,15 @@
+{
+  "description": "项目配置文件",
+  "appid": "touristappid",
+  "projectname": "zhushi-channel-app",
+  "compileType": "miniprogram",
+  "libVersion": "3.5.0",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "bigPackageSizeSupport": true
+  }
+}

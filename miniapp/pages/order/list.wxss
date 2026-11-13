@@ -1,0 +1,82 @@
+/* 订单中心样式 */
+
+.tab-bar {
+  white-space: nowrap;
+  background-color: #ffffff;
+  border-bottom: 2rpx solid #f0f0f0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.tab-item {
+  display: inline-block;
+  padding: 26rpx 32rpx;
+  font-size: 28rpx;
+  color: #666666;
+  position: relative;
+}
+
+.tab-item-on {
+  color: #c8161d;
+  font-weight: 600;
+}
+
+.tab-item-on::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 8rpx;
+  transform: translateX(-50%);
+  width: 48rpx;
+  height: 6rpx;
+  border-radius: 3rpx;
+  background-color: #c8161d;
+}
+
+.order-goods {
+  display: flex;
+  align-items: center;
+}
+
+.order-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20rpx;
+}
+
+.mini-btn {
+  padding: 10rpx 32rpx;
+  border-radius: 30rpx;
+  background-color: #c8161d;
+  color: #ffffff;
+  font-size: 26rpx;
+  margin-left: 16rpx;
+}
+
+.mini-btn-plain {
+  padding: 8rpx 30rpx;
+  border-radius: 30rpx;
+  background-color: #ffffff;
+  border: 2rpx solid #dddddd;
+  color: #666666;
+  font-size: 26rpx;
+  margin-left: 16rpx;
+}
+
+.empty-btn {
+  display: inline-block;
+  margin-top: 32rpx;
+  padding: 16rpx 48rpx;
+  border-radius: 40rpx;
+  background-color: #c8161d;
+  color: #ffffff;
+  font-size: 28rpx;
+}
+
+.list-end {
+  text-align: center;
+  color: #bbbbbb;
+  font-size: 24rpx;
+  padding: 30rpx 0;
+}

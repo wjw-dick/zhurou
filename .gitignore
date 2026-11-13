@@ -1,0 +1,49 @@
+# --- Java / Maven ---
+target/
+*.jar
+*.war
+*.class
+.mvn/wrapper/maven-wrapper.jar
+
+# --- Node ---
+node_modules/
+dist/
+dist-ssr/
+.pnpm-store/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.local
+
+# --- 小程序（微信开发者工具） ---
+project.private.config.json
+miniprogram_npm/
+.package-lock.json
+
+# --- IDE ---
+.idea/
+*.iml
+.vscode/
+!.vscode/extensions.json
+
+# --- 系统 ---
+.DS_Store
+Thumbs.db
+
+# --- 后端运行时产物（本地对象存储 / 日志） ---
+data/
+logs/
+*.log
+*.pid
+
+# --- 环境与密钥（严禁提交） ---
+.env
+deploy/.env
+*.pem
+*.key
+application-prod.yml
+
+# --- 本地探测与启动脚本痕迹 ---
+_env_probe.txt
+.run/

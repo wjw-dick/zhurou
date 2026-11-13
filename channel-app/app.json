@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/index/index",
+    "pages/report/list",
+    "pages/report/create",
+    "pages/order/list",
+    "pages/commission/rule",
+    "pages/settlement/list",
+    "pages/sub/list",
+    "pages/mine/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#c8161d",
+    "navigationBarTitleText": "猪事大吉 · 渠道商",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f6f6f8"
+  },
+  "tabBar": {
+    "color": "#888888",
+    "selectedColor": "#c8161d",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "工作台"
+      },
+      {
+        "pagePath": "pages/report/list",
+        "text": "报单"
+      },
+      {
+        "pagePath": "pages/order/list",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/settlement/list",
+        "text": "结算"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,32 @@
+<view class="list">
+  <view class="card" wx:for="{{list}}" wx:key="id">
+    <view class="order-head">
+      <text class="order-no">{{item.orderNo}}</text>
+      <text
+        class="tag {{item.status === 'COMPLETED' ? 'tag-green' : (item.status === 'CANCELLED' ? 'tag-red' : 'tag-orange')}}"
+      >
+        {{statusLabel[item.status] || item.status}}
+      </text>
+    </view>
+    <view class="row">
+      <text class="label">订单类型</text>
+      <text class="value">{{orderTypeLabel[item.orderType] || item.orderType}}</text>
+    </view>
+    <view class="row">
+      <text class="label">订单金额</text>
+      <text class="price">¥{{item.payAmount || item.totalAmount || 0}}</text>
+    </view>
+    <view class="row">
+      <text class="label">收货人</text>
+      <text class="value">{{item.receiverName || '-'}} {{item.receiverPhone || ''}}</text>
+    </view>
+    <view class="row">
+      <text class="label">下单时间</text>
+      <text class="value">{{item.createTime || '-'}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="empty" wx:if="{{!loading && !list.length}}">暂无关联订单</view>
+<view class="empty" wx:if="{{finished && list.length}}">— 已经到底啦 —</view>
+<view class="empty" wx:if="{{loading}}">加载中…</view>

@@ -1,0 +1,145 @@
+/* 我的页面样式 */
+
+.member-card {
+  background: linear-gradient(135deg, #c8161d, #e04a4f);
+  border-radius: 16rpx;
+  padding: 36rpx 32rpx 24rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 8rpx 24rpx rgba(200, 22, 29, 0.25);
+}
+
+.member-top {
+  display: flex;
+  align-items: center;
+}
+
+.avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  background-color: #ffffff;
+  margin-right: 24rpx;
+  flex-shrink: 0;
+}
+
+.avatar-default {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60rpx;
+}
+
+.member-name {
+  color: #ffffff;
+  font-size: 34rpx;
+  font-weight: 600;
+}
+
+.member-level {
+  margin-top: 12rpx;
+  display: flex;
+  align-items: center;
+}
+
+.level-badge {
+  display: inline-block;
+  padding: 2rpx 16rpx;
+  border-radius: 20rpx;
+  background-color: rgba(255, 255, 255, 0.22);
+  color: #ffe6b0;
+  font-size: 22rpx;
+}
+
+.member-phone {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 22rpx;
+  margin-left: 16rpx;
+}
+
+.member-arrow {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 40rpx;
+}
+
+.member-assets {
+  display: flex;
+  margin-top: 32rpx;
+  padding-top: 24rpx;
+  border-top: 2rpx solid rgba(255, 255, 255, 0.2);
+}
+
+.asset-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.asset-num {
+  color: #ffffff;
+  font-size: 34rpx;
+  font-weight: 600;
+}
+
+.asset-label {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 22rpx;
+  margin-top: 6rpx;
+}
+
+/* 订单入口 */
+.order-entry {
+  display: flex;
+  margin-top: 24rpx;
+}
+
+.entry-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.entry-icon {
+  font-size: 44rpx;
+}
+
+.entry-text {
+  font-size: 24rpx;
+  color: #555555;
+  margin-top: 8rpx;
+}
+
+/* 功能列表 */
+.link-row {
+  display: flex;
+  align-items: center;
+  padding: 26rpx 0;
+  border-bottom: 2rpx solid #f5f5f5;
+}
+
+.link-row:last-child {
+  border-bottom: none;
+}
+
+.link-icon {
+  font-size: 36rpx;
+  margin-right: 20rpx;
+}
+
+.link-text {
+  font-size: 28rpx;
+  color: #333333;
+}
+
+.link-arrow {
+  color: #cccccc;
+  font-size: 34rpx;
+}
+
+.foot-tip {
+  text-align: center;
+  color: #bbbbbb;
+  font-size: 22rpx;
+  padding: 20rpx 0 40rpx;
+}

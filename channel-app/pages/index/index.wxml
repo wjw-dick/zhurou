@@ -1,0 +1,61 @@
+<view class="workbench">
+  <view class="header">
+    <view class="hello">{{user.nickname || user.username || '渠道商'}}，你好</view>
+    <view class="hello-sub">{{channel.name || '渠道商管理端'}}</view>
+  </view>
+
+  <view class="stats">
+    <view class="stat-card" bindtap="goReport">
+      <view class="stat-num">{{monthReportCount}}</view>
+      <view class="stat-label">本月报单数</view>
+    </view>
+    <view class="stat-card" bindtap="goReport">
+      <view class="stat-num">{{pendingAuditCount}}</view>
+      <view class="stat-label">待审核报单</view>
+    </view>
+    <view class="stat-card wide" bindtap="goSettlement">
+      <view class="stat-num price">¥{{withdrawableCommission}}</view>
+      <view class="stat-label">可提现佣金（已通过未结算）</view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">授信额度</view>
+    <view class="row">
+      <text class="label">授信总额度</text>
+      <text class="value price">¥{{creditLimit}}</text>
+    </view>
+    <view class="row">
+      <text class="label">已用额度</text>
+      <text class="value">¥{{usedCredit}}</text>
+    </view>
+    <view class="row">
+      <text class="label">可用额度</text>
+      <text class="value">¥{{availableCredit}}</text>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">常用功能</view>
+    <view class="entry-grid">
+      <view class="entry" bindtap="goCreate">
+        <view class="entry-icon">📝</view>
+        <view class="entry-text">新建报单</view>
+      </view>
+      <view class="entry" bindtap="goOrder">
+        <view class="entry-icon">📦</view>
+        <view class="entry-text">关联订单</view>
+      </view>
+      <view class="entry" bindtap="goRule">
+        <view class="entry-icon">📈</view>
+        <view class="entry-text">佣金规则</view>
+      </view>
+      <view class="entry" bindtap="goSub">
+        <view class="entry-icon">👥</view>
+        <view class="entry-text">下级渠道</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="tip-text">下拉可刷新汇总数据</view>
+</view>

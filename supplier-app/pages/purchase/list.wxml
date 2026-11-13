@@ -1,0 +1,39 @@
+<view class="filter-bar">
+  <view
+    class="filter-item {{activeStatus === item.value ? 'active' : ''}}"
+    wx:for="{{statusOptions}}"
+    wx:key="value"
+    data-value="{{item.value}}"
+    bindtap="onStatusTap"
+  >
+    {{item.label}}
+  </view>
+</view>
+
+<view class="list">
+  <view class="card order" wx:for="{{list}}" wx:key="id" data-id="{{item.id}}" bindtap="goDetail">
+    <view class="order-head">
+      <text class="order-no">{{item.purchaseNo}}</text>
+      <text class="tag {{item.status === 'SETTLED' ? 'tag-green' : (item.status === 'CREATED' ? 'tag-red' : 'tag-orange')}}">
+        {{statusLabel[item.status] || item.status}}
+      </text>
+    </view>
+    <view class="row">
+      <text class="label">供货金额</text>
+      <text class="price">¥{{item.totalAmount || 0}}</text>
+    </view>
+    <view class="row">
+      <text class="label">已结算金额</text>
+      <text class="value">¥{{item.settleAmount || 0}}</text>
+    </view>
+    <view class="row">
+      <text class="label">期望到货</text>
+      <text class="value">{{item.expectDate || '-'}}</text>
+    </view>
+    <view class="order-foot">查看明细与确认送货 ›</view>
+  </view>
+</view>
+
+<view class="empty" wx:if="{{!loading && !list.length}}">暂无供货单</view>
+<view class="empty" wx:if="{{finished && list.length}}">— 已经到底啦 —</view>
+<view class="empty" wx:if="{{loading}}">加载中…</view>

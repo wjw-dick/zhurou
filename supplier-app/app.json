@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/login/index",
+    "pages/index/index",
+    "pages/purchase/list",
+    "pages/purchase/detail",
+    "pages/delivery/list",
+    "pages/settlement/list",
+    "pages/qualification/list",
+    "pages/qualification/edit",
+    "pages/mine/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#c8161d",
+    "navigationBarTitleText": "猪事大吉 · 供应商",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f6f6f8"
+  },
+  "tabBar": {
+    "color": "#888888",
+    "selectedColor": "#c8161d",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "工作台"
+      },
+      {
+        "pagePath": "pages/purchase/list",
+        "text": "供货单"
+      },
+      {
+        "pagePath": "pages/delivery/list",
+        "text": "送货"
+      },
+      {
+        "pagePath": "pages/settlement/list",
+        "text": "对账"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

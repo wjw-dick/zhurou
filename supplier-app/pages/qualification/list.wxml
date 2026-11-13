@@ -1,0 +1,55 @@
+<view class="filter-bar">
+  <view
+    class="filter-item {{activeStatus === item.value ? 'active' : ''}}"
+    wx:for="{{statusOptions}}"
+    wx:key="value"
+    data-value="{{item.value}}"
+    bindtap="onStatusTap"
+  >
+    {{item.label}}
+  </view>
+</view>
+
+<view class="list">
+  <view class="card" wx:for="{{list}}" wx:key="id">
+    <view class="order-head">
+      <text class="order-no">{{qualTypeLabel[item.qualType] || item.qualType}}</text>
+      <text
+        class="tag {{item.auditStatus === 'APPROVED' ? 'tag-green' : (item.auditStatus === 'REJECTED' ? 'tag-red' : 'tag-orange')}}"
+      >
+        {{statusLabel[item.auditStatus] || item.auditStatus}}
+      </text>
+    </view>
+    <view class="row">
+      <text class="label">证书编号</text>
+      <text class="value">{{item.qualNo || '-'}}</text>
+    </view>
+    <view class="row">
+      <text class="label">发证 / 到期</text>
+      <text class="value">{{item.issueDate || '-'}} ~ {{item.expireDate || '-'}}</text>
+    </view>
+    <view class="row" wx:if="{{item.auditRemark}}">
+      <text class="label">审核意见</text>
+      <text class="value">{{item.auditRemark}}</text>
+    </view>
+    <image
+      class="cert-img"
+      wx:if="{{item.fileUrl}}"
+      src="{{item.fileUrl}}"
+      mode="aspectFill"
+      data-url="{{item.fileUrl}}"
+      bindtap="onPreview"
+    />
+    <view class="card-foot">
+      <text class="link" data-id="{{item.id}}" bindtap="goEdit">编辑</text>
+    </view>
+  </view>
+</view>
+
+<view class="empty" wx:if="{{!loading && !list.length}}">暂无资质记录，点击下方按钮上传</view>
+<view class="empty" wx:if="{{finished && list.length}}">— 已经到底啦 —</view>
+<view class="empty" wx:if="{{loading}}">加载中…</view>
+
+<view class="bottom-bar">
+  <button class="btn-primary" bindtap="goAdd">新增资质 / 检疫证明</button>
+</view>

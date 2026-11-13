@@ -1,0 +1,127 @@
+<!-- 确认下单 -->
+<view class="page">
+
+  <!-- 配送方式 -->
+  <view class="card">
+    <view class="section-title">配送方式</view>
+    <view class="seg">
+      <view
+        class="seg-item {{deliveryType === 'SELF_PICKUP' ? 'seg-item-on' : ''}}"
+        bindtap="onDeliveryTap"
+        data-value="SELF_PICKUP"
+      >
+        到店自提
+      </view>
+      <view
+        class="seg-item {{deliveryType === 'DELIVERY' ? 'seg-item-on' : ''}}"
+        bindtap="onDeliveryTap"
+        data-value="DELIVERY"
+      >
+        门店配送
+      </view>
+    </view>
+  </view>
+
+  <!-- 自提/配送信息 -->
+  <view class="card">
+    <view class="row-between" style="margin-bottom:16rpx;">
+      <view class="section-title" style="margin-bottom:0">{{deliveryType === 'DELIVERY' ? '收货信息' : '自提门店'}}</view>
+      <text class="section-more" bindtap="chooseStore">切换门店 ›</text>
+    </view>
+
+    <view class="store-line">
+      <text class="rs-icon">📍</text>
+      <view class="flex-1">
+        <view class="text-bold">{{store ? (store.storeName || store.name) : '未选择门店'}}</view>
+        <view class="text-muted ellipsis">{{store && store.address ? store.address : ''}}</view>
+        <view class="text-muted" wx:if="{{store && store.phone}}">电话：{{store.phone}}</view>
+      </view>
+    </view>
+
+    <block wx:if="{{deliveryType === 'DELIVERY'}}">
+      <view class="form-row">
+        <text class="form-label">收货人</text>
+        <input class="form-input" placeholder="请填写收货人姓名" value="{{receiverName}}" bindinput="onInput" data-field="receiverName" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">手机号</text>
+        <input class="form-input" type="number" maxlength="11" placeholder="请填写手机号" value="{{receiverPhone}}" bindinput="onInput" data-field="receiverPhone" />
+      </view>
+      <view class="form-row">
+        <text class="form-label">收货地址</text>
+        <input class="form-input" placeholder="请填写详细地址" value="{{receiverAddress}}" bindinput="onInput" data-field="receiverAddress" />
+      </view>
+    </block>
+
+    <view class="form-row">
+      <text class="form-label">预约日期</text>
+      <picker mode="date" value="{{appointDate}}" bindchange="onDateChange">
+        <view class="form-input">{{appointDate || '选择日期（可选）'}}</view>
+      </picker>
+    </view>
+
+    <view class="form-row">
+      <text class="form-label">备注</text>
+      <input class="form-input form-input-left" placeholder="口味、分割等特殊要求" value="{{remark}}" bindinput="onInput" data-field="remark" />
+    </view>
+  </view>
+
+  <!-- 商品清单 -->
+  <view class="card">
+    <view class="section-title">商品清单</view>
+    <view class="goods-item" wx:for="{{items}}" wx:key="key">
+      <image wx:if="{{item.image}}" class="goods-thumb-sm" src="{{item.image}}" mode="aspectFill" />
+      <view wx:else class="goods-thumb-sm thumb-placeholder">暂无图</view>
+      <view class="goods-info">
+        <view class="goods-name ellipsis-2">{{item.productName}}</view>
+        <view class="goods-desc ellipsis">{{item.skuName}}</view>
+        <view class="goods-desc" wx:if="{{item.splitLabel && item.splitLabel !== '不分割'}}">分割：{{item.splitLabel}}</view>
+        <view class="row-between" style="margin-top:8rpx;">
+          <text class="price">¥{{item.price}}</text>
+          <text class="text-muted">×{{item.quantity}}</text>
+        </view>
+      </view>
+    </view>
+    <view wx:if="{{!items.length}}" class="empty">没有待结算商品</view>
+  </view>
+
+  <!-- 金额 -->
+  <view class="card">
+    <view class="row-between amount-row">
+      <text class="text-muted">商品金额</text>
+      <text>¥{{goodsAmount}}</text>
+    </view>
+    <view class="row-between amount-row">
+      <text class="text-muted">{{deliveryType === 'DELIVERY' ? '配送费' : '自提免配送费'}}</text>
+      <text>¥{{deliveryFee}}</text>
+    </view>
+    <view class="row-between amount-row" wx:if="{{totalWeight}}">
+      <text class="text-muted">预估总重</text>
+      <text>{{totalWeight}} kg</text>
+    </view>
+    <view class="divider"></view>
+    <view class="row-between">
+      <text class="text-bold">应付金额</text>
+      <text class="price">
+        <text class="price-symbol">¥</text>
+        <text class="price-num">{{payAmount}}</text>
+      </text>
+    </view>
+  </view>
+
+  <view class="footer-holder"></view>
+
+  <!-- 提交 -->
+  <view class="footer-bar">
+    <view class="flex-1">
+      <text class="text-muted">应付：</text>
+      <text class="price">
+        <text class="price-symbol">¥</text>
+        <text class="price-num">{{payAmount}}</text>
+      </text>
+    </view>
+    <view class="btn btn-primary submit-btn {{submitting ? 'btn-disabled' : ''}}" bindtap="submit">
+      {{submitting ? '提交中…' : '提交订单'}}
+    </view>
+  </view>
+</view>

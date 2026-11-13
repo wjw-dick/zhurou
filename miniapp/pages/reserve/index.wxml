@@ -1,0 +1,169 @@
+<!-- 鲜肉预订页 -->
+<view class="page">
+
+  <!-- 门店选择 -->
+  <view class="card row-between" bindtap="openStorePopup">
+    <view class="row flex-1">
+      <text class="rs-icon">🏬</text>
+      <view class="flex-1">
+        <view class="text-bold ellipsis">{{store ? (store.storeName || store.name) : '请选择预订门店'}}</view>
+        <view class="text-muted ellipsis">{{store && store.address ? store.address : '选择门店后可查看备货量'}}</view>
+      </view>
+    </view>
+    <text class="text-main" style="font-size:24rpx;">切换 ›</text>
+  </view>
+
+  <!-- 预订日期 -->
+  <view class="card">
+    <view class="section-title">预订日期</view>
+    <view class="option-list">
+      <view
+        class="option-item {{reserveDate === item.value ? 'option-item-on' : ''}}"
+        wx:for="{{reserveDates}}"
+        wx:key="value"
+        bindtap="onDateTap"
+        data-value="{{item.value}}"
+      >
+        <text class="option-label">{{item.label}}</text>
+        <text class="option-sub">{{item.date}}</text>
+      </view>
+    </view>
+    <view class="text-muted" wx:if="{{reserveConfig && reserveConfig.cutoffTime}}">
+      当日预订截止时间：{{reserveConfig.cutoffTime}}
+    </view>
+    <view class="stock-tip" wx:if="{{stocks}}">
+      当前门店该日备货：<text class="text-main">{{stocks.remain != null ? stocks.remain : (stocks.stock != null ? stocks.stock : '充足')}}</text>
+    </view>
+  </view>
+
+  <!-- 可预订商品 -->
+  <view class="card">
+    <view class="section-title">选择预订商品</view>
+    <view wx:if="{{products.length}}">
+      <view class="goods-item" wx:for="{{products}}" wx:key="id">
+        <image
+          wx:if="{{item.displayImage}}"
+          class="goods-thumb"
+          src="{{item.displayImage}}"
+          mode="aspectFill"
+          bindtap="goDetail"
+          data-id="{{item.id}}"
+        />
+        <view wx:else class="goods-thumb thumb-placeholder" bindtap="goDetail" data-id="{{item.id}}">暂无图</view>
+
+        <view class="goods-info">
+          <view>
+            <view class="goods-name ellipsis">{{item.displayName}}</view>
+            <view class="goods-desc ellipsis">{{item.spec || '按规格预订'}}</view>
+          </view>
+          <view class="row-between">
+            <view class="price">
+              <text class="price-symbol">¥</text>
+              <text class="price-num" style="font-size:32rpx;">{{item.displayPrice}}</text>
+              <text class="text-muted">/{{item.unit || '份'}}</text>
+            </view>
+            <view class="mini-btn" bindtap="openSheet" data-item="{{item}}">预订</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view wx:elif="{{loading}}" class="empty">加载中…</view>
+    <view wx:else class="empty">
+      <text class="empty-icon">🥩</text>
+      暂无可预订商品
+    </view>
+  </view>
+
+  <view class="reserve-note">
+    <view class="note-title">预订说明</view>
+    <view class="note-item">1. 支持当天 / 次日预订，按门店备货量接单。</view>
+    <view class="note-item">2. 可选择切块 / 绞肉 / 切片等分割方式，部分收取加工费。</view>
+    <view class="note-item">3. 预订成功后请按预约日期到店自提或等待配送。</view>
+  </view>
+
+  <!-- 门店选择弹层 -->
+  <view wx:if="{{showStorePopup}}" class="sheet-mask" bindtap="closeStorePopup">
+    <view class="sheet" catchtap="noop">
+      <view class="sheet-title">选择门店</view>
+      <scroll-view scroll-y class="sheet-scroll">
+        <view
+          class="store-option {{store && store.id === item.id ? 'store-option-on' : ''}}"
+          wx:for="{{stores}}"
+          wx:key="id"
+          bindtap="onStoreTap"
+          data-item="{{item}}"
+        >
+          <view class="flex-1">
+            <view class="text-bold">{{item.storeName || item.name}}</view>
+            <view class="text-muted ellipsis">{{item.address || ''}}</view>
+          </view>
+          <text wx:if="{{store && store.id === item.id}}" class="text-main">✓</text>
+        </view>
+        <view wx:if="{{!stores.length}}" class="empty">暂无门店</view>
+      </scroll-view>
+    </view>
+  </view>
+
+  <!-- 预订选择弹层：规格 / 分割方式 / 数量 -->
+  <view wx:if="{{showSheet}}" class="sheet-mask" bindtap="closeSheet">
+    <view class="sheet" catchtap="noop">
+      <view class="sheet-head">
+        <image wx:if="{{current.displayImage}}" class="sheet-img" src="{{current.displayImage}}" mode="aspectFill" />
+        <view wx:else class="sheet-img thumb-placeholder">图</view>
+        <view class="flex-1">
+          <view class="text-bold ellipsis">{{current.displayName}}</view>
+          <view class="price">
+            <text class="price-symbol">¥</text>
+            <text class="price-num">{{(selectedSku && selectedSku.price) || current.displayPrice}}</text>
+          </view>
+        </view>
+        <text class="sheet-close" bindtap="closeSheet">✕</text>
+      </view>
+
+      <scroll-view scroll-y class="sheet-body">
+        <view class="sheet-block" wx:if="{{skus.length}}">
+          <view class="sheet-label">规格</view>
+          <view class="option-list">
+            <view
+              class="option-item {{selectedSkuIndex === index ? 'option-item-on' : ''}}"
+              wx:for="{{skus}}"
+              wx:key="id"
+              bindtap="onSkuTap"
+              data-index="{{index}}"
+            >
+              {{item.skuName || item.name}} ¥{{item.price}}
+            </view>
+          </view>
+        </view>
+
+        <view class="sheet-block">
+          <view class="sheet-label">分割方式</view>
+          <view class="option-list">
+            <view
+              class="option-item {{splitType === item.value ? 'option-item-on' : ''}}"
+              wx:for="{{splitTypes}}"
+              wx:key="value"
+              bindtap="onSplitTap"
+              data-value="{{item.value}}"
+            >
+              {{item.label}}<text wx:if="{{item.fee > 0}}" class="option-fee">+¥{{item.fee}}</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="sheet-block row-between">
+          <view class="sheet-label" style="margin-bottom:0">预订数量</view>
+          <view class="stepper">
+            <view class="stepper-btn" bindtap="minus">−</view>
+            <input class="stepper-num" type="number" value="{{quantity}}" bindinput="onQuantityInput" />
+            <view class="stepper-btn stepper-btn-on" bindtap="plus">＋</view>
+          </view>
+        </view>
+      </scroll-view>
+
+      <view class="sheet-foot">
+        <view class="btn btn-primary" style="width:100%" bindtap="submit">提交预订</view>
+      </view>
+    </view>
+  </view>
+</view>

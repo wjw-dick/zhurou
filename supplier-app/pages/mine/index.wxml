@@ -1,0 +1,34 @@
+<view class="profile">
+  <view class="avatar">{{(user.nickname || user.username || '供')[0]}}</view>
+  <view class="profile-info">
+    <view class="name">{{user.nickname || user.username || '供应商'}}</view>
+    <view class="role">{{user.userType || 'SUPPLIER'}}</view>
+  </view>
+</view>
+
+<view class="card">
+  <view class="card-title">账号信息</view>
+  <view class="row">
+    <text class="label">登录账号</text>
+    <text class="value">{{user.username || '-'}}</text>
+  </view>
+  <view class="row">
+    <text class="label">用户ID</text>
+    <text class="value">{{user.userId || '-'}}</text>
+  </view>
+  <view class="row">
+    <text class="label">供应商ID</text>
+    <text class="value">{{supplierId || '未绑定'}}</text>
+  </view>
+</view>
+
+<view class="card">
+  <view class="row" bindtap="goQualification">
+    <text class="label">我的资质与检疫证明</text>
+    <text class="value">›</text>
+  </view>
+</view>
+
+<view class="logout-wrap">
+  <button class="btn-plain" bindtap="onLogout">退出登录</button>
+</view>

@@ -1,0 +1,40 @@
+/* 购物车样式 */
+
+.cart-head {
+  padding: 8rpx 8rpx 20rpx;
+}
+
+.cart-item {
+  display: flex;
+  position: relative;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f5f5f5;
+}
+
+.cart-item:last-child {
+  border-bottom: none;
+}
+
+.cart-del {
+  position: absolute;
+  top: 16rpx;
+  right: 0;
+  color: #cccccc;
+  font-size: 28rpx;
+  padding: 4rpx 8rpx;
+}
+
+.empty-btn {
+  display: inline-block;
+  margin-top: 32rpx;
+  padding: 16rpx 48rpx;
+  border-radius: 40rpx;
+  background-color: #c8161d;
+  color: #ffffff;
+  font-size: 28rpx;
+}
+
+.checkout-btn {
+  width: 260rpx;
+  height: 80rpx;
+}

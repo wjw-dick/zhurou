@@ -1,0 +1,97 @@
+server:
+  # 注意：8080 若被其他项目占用，此处可改端口（前端 vite proxy 与本文件需同步）
+  port: 8090
+  servlet:
+    context-path: /api
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  application:
+    name: zhushi-daji
+  profiles:
+    active: dev
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+    default-property-inclusion: non_null
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 200MB
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 使用现成 MySQL：库 zhushu / 用户 zhushu
+    url: jdbc:mysql://127.0.0.1:3306/zhushu?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&nullCatalogMeansCurrent=true
+    username: zhushu
+    password: P2hWaDN5K46BWaBE
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 20
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
+
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 0
+      timeout: 5000ms
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 2
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /zhushi
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+        retry:
+          enabled: true
+          max-attempts: 3
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    # 如需排查 SQL，改为 org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  mapper-locations: classpath*:/mapper/**/*.xml
+  type-aliases-package: com.zhushi.**.entity
+
+zhushi:
+  jwt:
+    secret: zhushi-daji-jwt-secret-key-please-change-in-production-2026
+    expire-hours: 24
+  crypto:
+    key: zhushidaji-2026-secret-key-16
+  upload:
+    path: ./uploads
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+
+logging:
+  level:
+    com.zhushi: info
+    org.springframework.web: info

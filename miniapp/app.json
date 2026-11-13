@@ -1,0 +1,54 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/category/index",
+    "pages/reserve/index",
+    "pages/cart/index",
+    "pages/mine/index",
+    "pages/detail/index",
+    "pages/combo/index",
+    "pages/order/confirm",
+    "pages/order/list",
+    "pages/order/detail",
+    "pages/webview/index"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#c8161d",
+    "navigationBarTitleText": "猪事大吉",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f5f5f5",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#7a7a7a",
+    "selectedColor": "#c8161d",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/category/index",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/reserve/index",
+        "text": "鲜肉预订"
+      },
+      {
+        "pagePath": "pages/cart/index",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/mine/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents"
+}

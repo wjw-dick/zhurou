@@ -1,0 +1,28 @@
+<view class="list">
+  <view class="card" wx:for="{{list}}" wx:key="id">
+    <view class="rule-head">
+      <text class="rule-name">{{item.name}}</text>
+      <text class="tag {{item.statusText === '生效中' ? 'tag-green' : ''}}">{{item.statusText}}</text>
+    </view>
+    <view class="row">
+      <text class="label">适用品类</text>
+      <text class="value">{{item.bizTypeText}}</text>
+    </view>
+    <view class="row">
+      <text class="label">计佣方式</text>
+      <text class="value">{{item.ruleTypeText}}</text>
+    </view>
+    <view class="row">
+      <text class="label">佣金</text>
+      <text class="price">{{item.ruleText}}</text>
+    </view>
+    <view class="row">
+      <text class="label">适用层级</text>
+      <text class="value">{{item.levelText}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="tip">佣金规则由平台后台统一配置，如有疑问请联系业务对接人</view>
+<view class="empty" wx:if="{{!loading && !list.length}}">暂无佣金规则</view>
+<view class="empty" wx:if="{{loading}}">加载中…</view>

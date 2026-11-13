@@ -1,0 +1,53 @@
+<view class="summary">
+  <view class="summary-item">
+    <view class="summary-num">¥{{amountSum}}</view>
+    <view class="summary-label">应结金额</view>
+  </view>
+  <view class="summary-item">
+    <view class="summary-num">¥{{paidSum}}</view>
+    <view class="summary-label">已结金额</view>
+  </view>
+</view>
+
+<view class="filter-bar">
+  <view
+    class="filter-item {{activeStatus === item.value ? 'active' : ''}}"
+    wx:for="{{statusOptions}}"
+    wx:key="value"
+    data-value="{{item.value}}"
+    bindtap="onStatusTap"
+  >
+    {{item.label}}
+  </view>
+</view>
+
+<view class="list">
+  <view class="card" wx:for="{{list}}" wx:key="id">
+    <view class="order-head">
+      <text class="order-no">{{item.settleNo}}</text>
+      <text class="tag {{item.status === 'PAID' ? 'tag-green' : 'tag-orange'}}">
+        {{statusLabel[item.status] || item.status}}
+      </text>
+    </view>
+    <view class="row">
+      <text class="label">对账期间</text>
+      <text class="value">{{item.periodStart || '-'}} ~ {{item.periodEnd || '-'}}</text>
+    </view>
+    <view class="row">
+      <text class="label">应结金额</text>
+      <text class="price">¥{{item.amount || 0}}</text>
+    </view>
+    <view class="row">
+      <text class="label">已结金额</text>
+      <text class="value">¥{{item.paidAmount || 0}}</text>
+    </view>
+    <view class="row" wx:if="{{item.remark}}">
+      <text class="label">备注</text>
+      <text class="value">{{item.remark}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="empty" wx:if="{{!loading && !list.length}}">暂无结算单</view>
+<view class="empty" wx:if="{{finished && list.length}}">— 已经到底啦 —</view>
+<view class="empty" wx:if="{{loading}}">加载中…</view>

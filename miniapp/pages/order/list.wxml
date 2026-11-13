@@ -1,0 +1,65 @@
+<!-- 订单中心 -->
+<view class="page-nopad">
+
+  <!-- 状态 tab -->
+  <scroll-view scroll-x class="tab-bar">
+    <view
+      class="tab-item {{activeStatus === item.status ? 'tab-item-on' : ''}}"
+      wx:for="{{tabs}}"
+      wx:key="status"
+      bindtap="onTabTap"
+      data-status="{{item.status}}"
+    >
+      {{item.label}}
+    </view>
+  </scroll-view>
+
+  <view class="page">
+    <view wx:if="{{orders.length}}">
+      <view class="card" wx:for="{{orders}}" wx:key="orderNo" bindtap="goDetail" data-no="{{item.orderNo}}">
+        <view class="row-between">
+          <text class="text-muted">订单号：{{item.orderNo}}</text>
+          <text class="tag {{item.statusClass}}">{{item.statusText}}</text>
+        </view>
+        <view class="divider"></view>
+
+        <view class="order-goods" wx:if="{{item.firstItem}}">
+          <image wx:if="{{item.firstItem.image || item.firstItem.productImage}}" class="goods-thumb-sm" src="{{item.firstItem.image || item.firstItem.productImage}}" mode="aspectFill" />
+          <view wx:else class="goods-thumb-sm thumb-placeholder">暂无图</view>
+          <view class="goods-info">
+            <view class="goods-name ellipsis-2">{{item.firstItem.productName}}</view>
+            <view class="goods-desc ellipsis">{{item.firstItem.skuName}}</view>
+            <view class="text-muted">共 {{item.itemCount}} 件商品</view>
+          </view>
+        </view>
+        <view wx:else class="text-muted">共 {{item.itemCount}} 件商品</view>
+
+        <view class="divider"></view>
+        <view class="row-between">
+          <text class="text-muted">{{item.createdText}}</text>
+          <view>
+            <text class="text-muted">实付</text>
+            <text class="price">
+              <text class="price-symbol">¥</text>
+              <text class="price-num" style="font-size:32rpx;">{{item.amountText}}</text>
+            </text>
+          </view>
+        </view>
+
+        <view class="order-actions">
+          <view wx:if="{{item.status === 'UNPAID'}}" class="mini-btn" catchtap="payOrder" data-no="{{item.orderNo}}">去支付</view>
+          <view class="mini-btn-plain" catchtap="goDetail" data-no="{{item.orderNo}}">查看详情</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:elif="{{loading}}" class="empty">加载中…</view>
+    <view wx:else class="empty">
+      <text class="empty-icon">📦</text>
+      暂无{{activeStatus === 'UNPAID' ? '待支付' : ''}}订单
+      <view class="empty-btn" bindtap="goIndex">去逛逛</view>
+    </view>
+
+    <view wx:if="{{orders.length && noMore}}" class="list-end">— 没有更多了 —</view>
+  </view>
+</view>

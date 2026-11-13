@@ -1,0 +1,42 @@
+<view class="filter-bar">
+  <view
+    class="filter-item {{activeStatus === item.value ? 'active' : ''}}"
+    wx:for="{{statusOptions}}"
+    wx:key="value"
+    data-value="{{item.value}}"
+    bindtap="onStatusTap"
+  >
+    {{item.label}}
+  </view>
+</view>
+
+<view class="list">
+  <view class="card" wx:for="{{list}}" wx:key="id">
+    <view class="order-head">
+      <text class="order-no">{{item.deliveryNo}}</text>
+      <text class="tag {{item.status === 'RECEIVED' ? 'tag-green' : 'tag-orange'}}">
+        {{statusLabel[item.status] || item.status}}
+      </text>
+    </view>
+    <view class="row">
+      <text class="label">关联供货单ID</text>
+      <text class="value">{{item.purchaseId || '-'}}</text>
+    </view>
+    <view class="row">
+      <text class="label">司机 / 电话</text>
+      <text class="value">{{item.driver || '-'}} {{item.driverPhone || ''}}</text>
+    </view>
+    <view class="row">
+      <text class="label">冷链温度</text>
+      <text class="value">{{item.coldChainTemp || '-'}} ℃</text>
+    </view>
+    <view class="row">
+      <text class="label">送货时间</text>
+      <text class="value">{{item.deliveryTime || '-'}}</text>
+    </view>
+  </view>
+</view>
+
+<view class="empty" wx:if="{{!loading && !list.length}}">暂无送货单</view>
+<view class="empty" wx:if="{{finished && list.length}}">— 已经到底啦 —</view>
+<view class="empty" wx:if="{{loading}}">加载中…</view>

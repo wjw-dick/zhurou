@@ -1,0 +1,46 @@
+<view class="profile">
+  <view class="avatar">{{(channel.name || user.nickname || user.username || '渠')[0]}}</view>
+  <view class="profile-info">
+    <view class="name">{{channel.name || user.nickname || user.username || '渠道商'}}</view>
+    <view class="role">{{channelTypeText || '渠道商管理端'}}</view>
+  </view>
+</view>
+
+<view class="card">
+  <view class="card-title">渠道信息</view>
+  <view class="row">
+    <text class="label">渠道编码</text>
+    <text class="value">{{channel.code || '-'}}</text>
+  </view>
+  <view class="row">
+    <text class="label">渠道商ID</text>
+    <text class="value">{{channelId || '未绑定'}}</text>
+  </view>
+  <view class="row">
+    <text class="label">联系人 / 电话</text>
+    <text class="value">{{channel.contact || '-'}} {{channel.phone || ''}}</text>
+  </view>
+  <view class="row">
+    <text class="label">默认佣金比例</text>
+    <text class="price">{{channel.commissionRate || 0}}%</text>
+  </view>
+  <view class="row">
+    <text class="label">授信额度 / 已用</text>
+    <text class="value">¥{{channel.creditLimit || 0}} / ¥{{channel.usedCredit || 0}}</text>
+  </view>
+</view>
+
+<view class="card">
+  <view class="row" bindtap="goRule">
+    <text class="label">我的佣金规则</text>
+    <text class="value">›</text>
+  </view>
+  <view class="row" bindtap="goSub">
+    <text class="label">下级渠道管理</text>
+    <text class="value">›</text>
+  </view>
+</view>
+
+<view class="logout-wrap">
+  <button class="btn-plain" bindtap="onLogout">退出登录</button>
+</view>

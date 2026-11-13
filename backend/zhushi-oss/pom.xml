@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.zhushi</groupId>
+    <artifactId>zhushi-daji</artifactId>
+    <version>1.0.0</version>
+  </parent>
+  <artifactId>zhushi-oss</artifactId>
+  <name>zhushi-oss</name>
+  <description>对象存储模块：抽象接口 + 5 驱动（本地/S3/OSS/COS/MinIO）+ 密钥加密</description>
+  <dependencies>
+    <dependency>
+      <groupId>com.zhushi</groupId>
+      <artifactId>zhushi-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.minio</groupId>
+      <artifactId>minio</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>software.amazon.awssdk</groupId>
+      <artifactId>s3</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.aliyun.oss</groupId>
+      <artifactId>aliyun-sdk-oss</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.qcloud</groupId>
+      <artifactId>cos_api</artifactId>
+    </dependency>
+  </dependencies>
+</project>

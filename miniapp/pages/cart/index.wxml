@@ -1,0 +1,64 @@
+<!-- 购物车 -->
+<view class="page">
+
+  <view class="cart-head row-between" wx:if="{{items.length}}">
+    <text class="text-muted">共 {{totalCount}} 件商品</text>
+    <text class="text-main" style="font-size:26rpx;" bindtap="clearCart">清空</text>
+  </view>
+
+  <view class="card" wx:if="{{items.length}}">
+    <view class="cart-item" wx:for="{{items}}" wx:key="key">
+      <image
+        wx:if="{{item.image}}"
+        class="goods-thumb-sm"
+        src="{{item.image}}"
+        mode="aspectFill"
+        bindtap="goDetail"
+        data-id="{{item.productId}}"
+      />
+      <view wx:else class="goods-thumb-sm thumb-placeholder" bindtap="goDetail" data-id="{{item.productId}}">暂无图</view>
+
+      <view class="goods-info">
+        <view class="goods-name ellipsis-2">{{item.productName}}</view>
+        <view class="goods-desc ellipsis">{{item.skuName}}</view>
+        <view class="goods-desc" wx:if="{{item.splitLabel && item.splitLabel !== '不分割'}}">
+          分割方式：{{item.splitLabel}}<text wx:if="{{item.splitFee > 0}}" class="text-gold"> (+¥{{item.splitFee}})</text>
+        </view>
+
+        <view class="row-between" style="margin-top:12rpx;">
+          <view class="price">
+            <text class="price-symbol">¥</text>
+            <text class="price-num" style="font-size:32rpx;">{{item.price}}</text>
+          </view>
+          <view class="stepper">
+            <view class="stepper-btn" bindtap="minus" data-item="{{item}}">−</view>
+            <input class="stepper-num" type="number" value="{{item.quantity}}" bindinput="onQuantityInput" data-item="{{item}}" />
+            <view class="stepper-btn stepper-btn-on" bindtap="plus" data-item="{{item}}">＋</view>
+          </view>
+        </view>
+      </view>
+
+      <text class="cart-del" bindtap="removeItem" data-item="{{item}}">✕</text>
+    </view>
+  </view>
+
+  <view wx:else class="empty">
+    <text class="empty-icon">🛒</text>
+    购物车还是空的
+    <view class="empty-btn" bindtap="goIndex">去逛逛</view>
+  </view>
+
+  <view class="footer-holder" wx:if="{{items.length}}"></view>
+
+  <!-- 结算栏 -->
+  <view class="footer-bar" wx:if="{{items.length}}">
+    <view class="flex-1">
+      <text class="text-muted">合计：</text>
+      <text class="price">
+        <text class="price-symbol">¥</text>
+        <text class="price-num">{{totalAmount}}</text>
+      </text>
+    </view>
+    <view class="btn btn-primary checkout-btn" bindtap="checkout">去结算({{totalCount}})</view>
+  </view>
+</view>

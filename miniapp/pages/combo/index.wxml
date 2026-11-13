@@ -1,0 +1,49 @@
+<!-- 火锅套餐 / 礼盒专区 -->
+<view class="page">
+
+  <!-- 专区头图 -->
+  <view class="combo-banner">
+    <view class="combo-title">火锅套餐 · 礼盒专区</view>
+    <view class="combo-sub">现切鲜肉 · 一站备齐 · 送礼有面</view>
+  </view>
+
+  <!-- 分类筛选 -->
+  <scroll-view wx:if="{{categories.length}}" scroll-x class="filter-bar">
+    <view
+      class="filter-tag {{activeCategoryId === item.id ? 'filter-tag-on' : ''}}"
+      wx:for="{{categories}}"
+      wx:key="name"
+      bindtap="onCategoryTap"
+      data-id="{{item.id}}"
+    >
+      {{item.name}}
+    </view>
+  </scroll-view>
+
+  <!-- 商品列表 -->
+  <view wx:if="{{products.length}}" class="combo-list">
+    <view class="combo-card" wx:for="{{products}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">
+      <image wx:if="{{item.displayImage}}" class="combo-img" src="{{item.displayImage}}" mode="aspectFill" />
+      <view wx:else class="combo-img thumb-placeholder">暂无图</view>
+      <view class="combo-info">
+        <view class="goods-name ellipsis-2">{{item.displayName}}</view>
+        <view class="goods-desc ellipsis">{{item.subTitle || '套餐组合更划算'}}</view>
+        <view class="row-between" style="margin-top:12rpx;">
+          <view class="price">
+            <text class="price-symbol">¥</text>
+            <text class="price-num" style="font-size:34rpx;">{{item.displayPrice}}</text>
+          </view>
+          <text class="buy-btn">去看看</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:elif="{{loading}}" class="empty">加载中…</view>
+  <view wx:else class="empty">
+    <text class="empty-icon">🍲</text>
+    暂无套餐商品
+  </view>
+
+  <view wx:if="{{products.length && noMore}}" class="list-end">— 没有更多了 —</view>
+</view>

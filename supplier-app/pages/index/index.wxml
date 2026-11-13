@@ -1,0 +1,64 @@
+<view class="workbench">
+  <!-- 顶部问候 -->
+  <view class="header">
+    <view class="hello">{{user.nickname || user.username || '供应商'}}，你好</view>
+    <view class="hello-sub">今天也要按时供货哦</view>
+  </view>
+
+  <!-- 汇总卡片 -->
+  <view class="stats">
+    <view class="stat-card" bindtap="goPurchase">
+      <view class="stat-num">{{pendingPurchase}}</view>
+      <view class="stat-label">待处理供货单</view>
+    </view>
+    <view class="stat-card" bindtap="goQualification">
+      <view class="stat-num">{{pendingQualification}}</view>
+      <view class="stat-label">待审核资质</view>
+    </view>
+    <view class="stat-card wide" bindtap="goSettlement">
+      <view class="stat-num price">¥{{monthSettleAmount}}</view>
+      <view class="stat-label">本月应结金额（已结 ¥{{monthPaidAmount}}）</view>
+    </view>
+  </view>
+
+  <!-- 快捷入口 -->
+  <view class="card">
+    <view class="card-title">常用功能</view>
+    <view class="entry-grid">
+      <view class="entry" bindtap="goPurchase">
+        <view class="entry-icon">📋</view>
+        <view class="entry-text">供货单</view>
+      </view>
+      <view class="entry" bindtap="goDelivery">
+        <view class="entry-icon">🚚</view>
+        <view class="entry-text">送货单</view>
+      </view>
+      <view class="entry" bindtap="goSettlement">
+        <view class="entry-icon">💰</view>
+        <view class="entry-text">对账结算</view>
+      </view>
+      <view class="entry" bindtap="goQualification">
+        <view class="entry-icon">📑</view>
+        <view class="entry-text">资质证照</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card">
+    <view class="card-title">账号信息</view>
+    <view class="row">
+      <text class="label">登录账号</text>
+      <text class="value">{{user.username || '-'}}</text>
+    </view>
+    <view class="row">
+      <text class="label">供应商ID</text>
+      <text class="value">{{supplierId || '未绑定'}}</text>
+    </view>
+    <view class="row">
+      <text class="label">角色</text>
+      <text class="value">{{user.userType || 'SUPPLIER'}}</text>
+    </view>
+  </view>
+
+  <view class="tip-text">下拉可刷新汇总数据</view>
+</view>

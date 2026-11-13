@@ -1,0 +1,18 @@
+.order-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14rpx;
+}
+
+.order-no {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.order-foot {
+  margin-top: 14rpx;
+  text-align: right;
+  font-size: 24rpx;
+  color: #c8161d;
+}

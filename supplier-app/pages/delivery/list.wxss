@@ -1,0 +1,11 @@
+.order-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14rpx;
+}
+
+.order-no {
+  font-size: 28rpx;
+  font-weight: 600;
+}

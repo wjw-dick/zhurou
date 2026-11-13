@@ -1,0 +1,48 @@
+<view class="card">
+  <view class="form-row">
+    <text class="form-label">资质类型</text>
+    <picker mode="selector" range="{{qualTypes}}" range-key="label" value="{{qualTypeIndex}}" bindchange="onQualTypeChange">
+      <view class="picker-value">{{qualTypes[qualTypeIndex].label}}</view>
+    </picker>
+  </view>
+
+  <view class="form-row">
+    <text class="form-label">证书编号</text>
+    <input
+      class="form-input"
+      placeholder="请输入证书编号"
+      value="{{form.qualNo}}"
+      data-field="qualNo"
+      bindinput="onInput"
+    />
+  </view>
+
+  <view class="form-row">
+    <text class="form-label">发证日期</text>
+    <picker mode="date" value="{{form.issueDate}}" data-field="issueDate" bindchange="onDateChange">
+      <view class="picker-value">{{form.issueDate || '请选择日期'}}</view>
+    </picker>
+  </view>
+
+  <view class="form-row">
+    <text class="form-label">到期日期</text>
+    <picker mode="date" value="{{form.expireDate}}" data-field="expireDate" bindchange="onDateChange">
+      <view class="picker-value">{{form.expireDate || '请选择日期'}}</view>
+    </picker>
+  </view>
+</view>
+
+<view class="card">
+  <view class="card-title">资质图片</view>
+  <view class="upload" bindtap="onChooseImage">
+    <image wx:if="{{form.fileUrl}}" class="upload-img" src="{{form.fileUrl}}" mode="aspectFill" bindtap="onPreviewImage" />
+    <view wx:else class="upload-placeholder">＋ 选择图片上传</view>
+  </view>
+  <view class="upload-tip">支持 jpg / png，上传成功后自动回填文件地址（POST /api/oss/file/upload）</view>
+</view>
+
+<view class="bottom-bar">
+  <button class="btn-primary" disabled="{{submitting}}" bindtap="onSave">
+    {{submitting ? '提交中…' : '保 存'}}
+  </button>
+</view>

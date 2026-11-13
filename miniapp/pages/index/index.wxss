@@ -1,0 +1,174 @@
+/* 首页样式 */
+
+.store-bar {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 24rpx;
+  background-color: #ffffff;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.store-pin {
+  font-size: 28rpx;
+  margin-right: 10rpx;
+}
+
+.store-name {
+  flex: 1;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #262626;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.store-switch {
+  font-size: 24rpx;
+  color: #c8161d;
+  flex-shrink: 0;
+}
+
+/* Banner */
+.banner {
+  width: 100%;
+  height: 320rpx;
+  border-radius: 16rpx;
+  overflow: hidden;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.08);
+}
+
+.banner-img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.banner-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #c8161d, #e04a4f);
+}
+
+.banner-ph-text {
+  color: #ffffff;
+  font-size: 40rpx;
+  font-weight: 600;
+  letter-spacing: 4rpx;
+}
+
+/* 快捷入口 */
+.quick-row {
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx 0;
+  margin-bottom: 20rpx;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.06);
+}
+
+.quick-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quick-icon {
+  font-size: 48rpx;
+  margin-bottom: 8rpx;
+}
+
+.quick-text {
+  font-size: 24rpx;
+  color: #555555;
+}
+
+/* 分类九宫格 */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid-item {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 28rpx;
+}
+
+.grid-icon-wrap {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: 50%;
+  background-color: #fdf3f3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10rpx;
+}
+
+.grid-icon {
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.grid-emoji {
+  font-size: 44rpx;
+}
+
+.grid-text {
+  font-size: 24rpx;
+  color: #444444;
+  max-width: 120rpx;
+  text-align: center;
+}
+
+/* 门店弹层 */
+.popup-mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.45);
+  z-index: 999;
+  display: flex;
+  align-items: flex-end;
+}
+
+.popup {
+  width: 100%;
+  max-height: 70vh;
+  background-color: #ffffff;
+  border-radius: 24rpx 24rpx 0 0;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.popup-title {
+  text-align: center;
+  font-size: 32rpx;
+  font-weight: 600;
+  padding: 30rpx 0;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.popup-body {
+  max-height: 56vh;
+  padding: 0 24rpx;
+}
+
+.store-option {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 16rpx;
+  border-bottom: 2rpx solid #f5f5f5;
+  border-radius: 12rpx;
+}
+
+.store-option-on {
+  background-color: #fdf3f3;
+}

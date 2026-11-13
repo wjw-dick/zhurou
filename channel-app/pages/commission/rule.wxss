@@ -1,0 +1,18 @@
+.rule-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14rpx;
+}
+
+.rule-name {
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.tip {
+  margin: 20rpx 30rpx;
+  font-size: 22rpx;
+  color: #aaa;
+  line-height: 1.6;
+}

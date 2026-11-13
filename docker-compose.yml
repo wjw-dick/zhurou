@@ -1,0 +1,93 @@
+version: "3.9"
+
+# 猪事大吉 · 一键部署
+#   docker compose up -d --build                  # 仅应用（复用宿主机 MySQL / Redis）
+#   docker compose --profile infra up -d --build  # 同时启动 MySQL / Redis
+#
+# 说明：宿主机已存在的 MySQL / Redis 无需容器化；若使用 infra profile，
+# 请先执行 db/schema.sql 与 db/data.sql 初始化。
+
+services:
+  backend:
+    build:
+      context: ./backend
+    image: zhushi-daji-backend:1.0.0
+    container_name: zhushi-backend
+    restart: unless-stopped
+    ports:
+      - "8090:8090"
+    environment:
+      TZ: Asia/Shanghai
+      SPRING_PROFILES_ACTIVE: docker
+      # 使用宿主机 MySQL / Redis 时（Windows/Mac 用 host.docker.internal）
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/zhushu?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: zhushu
+      SPRING_DATASOURCE_PASSWORD: P2hWaDN5K46BWaBE
+      SPRING_DATA_REDIS_HOST: host.docker.internal
+      SPRING_DATA_REDIS_PORT: "6379"
+      SPRING_DATA_REDIS_PASSWORD: ""
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/logs:/app/logs
+
+  admin-web:
+    build:
+      context: ./admin-web
+    image: zhushi-daji-admin-web:1.0.0
+    container_name: zhushi-admin-web
+    restart: unless-stopped
+    ports:
+      - "8088:80"
+    depends_on:
+      - backend
+
+  # ---------------- 可选基础设施 ----------------
+  mysql:
+    image: mysql:8.0
+    container_name: zhushi-mysql
+    profiles: ["infra"]
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: zhushu
+      MYSQL_USER: zhushu
+      MYSQL_PASSWORD: P2hWaDN5K46BWaBE
+      TZ: Asia/Shanghai
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_general_ci
+      - --default-authentication-plugin=mysql_native_password
+    volumes:
+      - zhushi-mysql-data:/var/lib/mysql
+      - ./db:/docker-entrypoint-initdb.d:ro
+
+  redis:
+    image: redis:7-alpine
+    container_name: zhushi-redis
+    profiles: ["infra"]
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - zhushi-redis-data:/data
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: zhushi-rabbitmq
+    profiles: ["infra"]
+    restart: unless-stopped
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+
+volumes:
+  zhushi-mysql-data:
+  zhushi-redis-data:

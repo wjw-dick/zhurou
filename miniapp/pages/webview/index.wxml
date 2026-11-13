@@ -1,0 +1,7 @@
+<!-- 通用网页容器 -->
+<web-view wx:if="{{url}}" src="{{url}}" bindmessage="onMessage"></web-view>
+
+<view wx:else class="empty">
+  <text class="empty-icon">🔗</text>
+  未提供网页地址
+</view>

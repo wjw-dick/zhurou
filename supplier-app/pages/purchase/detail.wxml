@@ -1,0 +1,45 @@
+<view class="card" wx:if="{{!loading}}">
+  <view class="order-head">
+    <text class="order-no">{{detail.purchaseNo || '-'}}</text>
+    <text class="tag tag-red">{{statusLabel[detail.status] || detail.status || '-'}}</text>
+  </view>
+  <view class="row">
+    <text class="label">供货金额</text>
+    <text class="price">¥{{detail.totalAmount || 0}}</text>
+  </view>
+  <view class="row">
+    <text class="label">已结算金额</text>
+    <text class="value">¥{{detail.settleAmount || 0}}</text>
+  </view>
+  <view class="row">
+    <text class="label">期望到货</text>
+    <text class="value">{{detail.expectDate || '-'}}</text>
+  </view>
+  <view class="row">
+    <text class="label">实际入库时间</text>
+    <text class="value">{{detail.receiveTime || '-'}}</text>
+  </view>
+  <view class="row" wx:if="{{detail.remark}}">
+    <text class="label">备注</text>
+    <text class="value">{{detail.remark}}</text>
+  </view>
+</view>
+
+<view class="card">
+  <view class="card-title">供货明细</view>
+  <view class="item" wx:for="{{items}}" wx:key="id">
+    <view class="item-left">
+      <view class="item-name">{{item.productName || ('商品 #' + item.productId)}}</view>
+      <view class="item-sub">{{item.spec || ''}} {{item.unit || ''}}</view>
+    </view>
+    <view class="item-right">
+      <view class="price">¥{{item.price || 0}}</view>
+      <view class="item-qty">x{{item.quantity || 0}}</view>
+    </view>
+  </view>
+  <view class="empty" wx:if="{{!items.length}}">暂无明细</view>
+</view>
+
+<view class="bottom-bar" wx:if="{{!loading}}">
+  <button class="btn-primary" disabled="{{submitting}}" bindtap="onConfirmDelivery">确认送货</button>
+</view>

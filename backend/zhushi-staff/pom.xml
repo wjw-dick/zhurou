@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>com.zhushi</groupId>
+    <artifactId>zhushi-daji</artifactId>
+    <version>1.0.0</version>
+  </parent>
+  <artifactId>zhushi-staff</artifactId>
+  <name>zhushi-staff</name>
+  <description>店员/分割师傅模块：备货待办 / 分割登记 / 称重开单 / 业绩提成</description>
+  <dependencies>
+    <dependency>
+      <groupId>com.zhushi</groupId>
+      <artifactId>zhushi-common</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.zhushi</groupId>
+      <artifactId>zhushi-store</artifactId>
+    </dependency>
+  </dependencies>
+</project>

@@ -1,0 +1,87 @@
+<!-- 分类页：左侧分类树 + 右侧商品列表 -->
+<view class="cat-page">
+
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        placeholder="搜索商品名称"
+        confirm-type="search"
+        value="{{keyword}}"
+        bindinput="onKeywordInput"
+        bindconfirm="onSearch"
+      />
+      <text wx:if="{{keyword}}" class="search-clear" bindtap="clearSearch">✕</text>
+    </view>
+    <text class="search-btn" bindtap="onSearch">搜索</text>
+  </view>
+
+  <view class="cat-body">
+    <!-- 左侧：一级品类 -->
+    <scroll-view scroll-y class="side">
+      <view
+        class="side-item {{activeTopIndex === index ? 'side-item-on' : ''}}"
+        wx:for="{{topList}}"
+        wx:key="id"
+        bindtap="onTopTap"
+        data-index="{{index}}"
+      >
+        <text>{{item.name}}</text>
+      </view>
+      <view wx:if="{{!topList.length}}" class="text-muted" style="padding:20rpx;">暂无分类</view>
+    </scroll-view>
+
+    <!-- 右侧：二级分类 + 商品 -->
+    <scroll-view scroll-y class="main">
+      <!-- 二级分类横向标签 -->
+      <scroll-view wx:if="{{subList.length}}" scroll-x class="sub-bar">
+        <view
+          class="sub-tag {{(activeSubId === null && index === 0) || activeSubId === item.id ? 'sub-tag-on' : ''}}"
+          wx:for="{{subList}}"
+          wx:key="id"
+          bindtap="onSubTap"
+          data-item="{{item}}"
+        >
+          {{item.name}}
+        </view>
+      </scroll-view>
+
+      <!-- 商品列表 -->
+      <view class="goods-list">
+        <view
+          class="goods-item"
+          wx:for="{{products}}"
+          wx:key="id"
+          bindtap="goDetail"
+          data-id="{{item.id}}"
+        >
+          <image
+            wx:if="{{item.displayImage}}"
+            class="goods-thumb-sm"
+            src="{{item.displayImage}}"
+            mode="aspectFill"
+          />
+          <view wx:else class="goods-thumb-sm thumb-placeholder">暂无图</view>
+
+          <view class="goods-info">
+            <view class="goods-name ellipsis-2">{{item.displayName}}</view>
+            <view class="goods-desc ellipsis">{{item.subTitle || item.origin || ''}}</view>
+            <view class="row-between" style="margin-top:8rpx;">
+              <view class="price">
+                <text class="price-symbol">¥</text>
+                <text class="price-num" style="font-size:32rpx;">{{item.displayPrice}}</text>
+              </view>
+              <text wx:if="{{item.reservable}}" class="tag tag-gold">可预订</text>
+            </view>
+          </view>
+        </view>
+
+        <view wx:if="{{loading}}" class="empty" style="padding:60rpx 0">加载中…</view>
+        <view wx:elif="{{!products.length}}" class="empty" style="padding:60rpx 0">该分类下暂无商品</view>
+        <view wx:elif="{{noMore}}" class="list-end">— 没有更多了 —</view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

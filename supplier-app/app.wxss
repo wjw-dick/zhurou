@@ -1,0 +1,138 @@
+/* 全局样式：主色中国红 #c8161d */
+page {
+  background: #f6f6f8;
+  color: #222;
+  font-size: 28rpx;
+  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', 'Microsoft YaHei', sans-serif;
+}
+
+view,
+text,
+input,
+textarea,
+button {
+  box-sizing: border-box;
+}
+
+/* 卡片 */
+.card {
+  margin: 20rpx;
+  padding: 24rpx;
+  background: #fff;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.card-title {
+  font-size: 30rpx;
+  font-weight: 600;
+  margin-bottom: 16rpx;
+}
+
+/* 主按钮 */
+.btn-primary {
+  height: 84rpx;
+  line-height: 84rpx;
+  border-radius: 42rpx;
+  background: #c8161d;
+  color: #fff;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+.btn-primary[disabled] {
+  background: #e8a1a4;
+  color: #fff;
+}
+
+.btn-plain {
+  height: 84rpx;
+  line-height: 84rpx;
+  border-radius: 42rpx;
+  background: #fff;
+  color: #c8161d;
+  border: 1rpx solid #c8161d;
+  font-size: 30rpx;
+  text-align: center;
+}
+
+/* 列表行 */
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16rpx 0;
+  border-bottom: 1rpx solid #f2f2f2;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  color: #888;
+}
+
+.value {
+  color: #222;
+}
+
+/* 状态标签 */
+.tag {
+  display: inline-block;
+  padding: 4rpx 14rpx;
+  border-radius: 20rpx;
+  font-size: 22rpx;
+  background: #f4f4f6;
+  color: #666;
+}
+
+.tag-red {
+  background: #fdecec;
+  color: #c8161d;
+}
+
+.tag-green {
+  background: #eaf7ee;
+  color: #17a34a;
+}
+
+.tag-orange {
+  background: #fff3e5;
+  color: #e08a15;
+}
+
+/* 金额 */
+.price {
+  color: #c8161d;
+  font-weight: 600;
+}
+
+/* 空状态 */
+.empty {
+  padding: 120rpx 0;
+  text-align: center;
+  color: #999;
+  font-size: 26rpx;
+}
+
+/* 筛选 tab */
+.filter-bar {
+  display: flex;
+  padding: 16rpx 20rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.filter-item {
+  flex: 1;
+  text-align: center;
+  font-size: 26rpx;
+  color: #666;
+  padding: 8rpx 0;
+}
+
+.filter-item.active {
+  color: #c8161d;
+  font-weight: 600;
+}
